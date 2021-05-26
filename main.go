@@ -133,6 +133,7 @@ func (iv *invoicer) getInvoice(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Add("Content-Type", "application/json")
 	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonInvoice)
 }
@@ -226,7 +227,7 @@ func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
         <p class="desc-invoice"></p>
         <div class="invoice-details">
         </div>
-        <h3>Request an invoice by ID</h3>
+        <h3>Please Request an invoice by ID</h3>
         <form id="invoiceGetter" method="GET">
             <label>ID :</label>
             <input id="invoiceid" type="text" />
