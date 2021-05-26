@@ -133,7 +133,6 @@ func (iv *invoicer) getInvoice(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Add("Content-Type", "application/json")
 	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonInvoice)
 }
@@ -187,7 +186,6 @@ func (iv *invoicer) putInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Save(&i1)
 	iv.db.First(&i1, vars["id"])
 	log.Printf("%+v\n", i1)
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusAccepted)
 	w.Write([]byte(fmt.Sprintf("updated invoice %d", i1.ID)))
 }
@@ -205,7 +203,6 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Where("invoice_id = ?", id).Delete(Charge{})
 	i1.ID = uint(id)
 	iv.db.Delete(&i1)
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusAccepted)
 	w.Write([]byte(fmt.Sprintf("deleted invoice %d", i1.ID)))
 }
@@ -213,7 +210,6 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Security-Policy", "default-src 'self'; child-src 'self;")
 	w.Header().Add("X-Frame-Options", "SAMEORIGIN")
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(`
 <!DOCTYPE html>
 <html>
