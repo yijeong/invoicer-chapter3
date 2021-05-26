@@ -310,11 +310,11 @@ func (iv *invoicer) getOAuth2Callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	token, err := oauthCfg.Exchange(oauth2.NoContext, r.FormValue("code"))
-	if err != nil {
-		w.WriteHeader(http.StatusNotAcceptable)
-		w.Write([]byte("Failed to obtain token from oauth code " + r.FormValue("code")))
-		return
-	}
+	// if err != nil {
+	//	w.WriteHeader(http.StatusNotAcceptable)
+	//	w.Write([]byte("Failed to obtain token from oauth code " + r.FormValue("code")))
+	//	return
+	//}
 
 	client := oauthCfg.Client(oauth2.NoContext, token)
 	resp, err := client.Get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json`)
