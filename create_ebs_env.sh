@@ -14,7 +14,7 @@ export AWS_DEFAULT_REGION=${AWS_REGION:-us-east-1}
 
 datetag=$(date +%Y%m%d%H%M)
 # identifier=$(whoami)-invoicer-$datetag
-identifier=dso-invoicer-$datetag
+identifier=dso3-invoicer-$datetag
 mkdir -p tmp/$identifier
 
 echo "Creating EBS application $identifier"
