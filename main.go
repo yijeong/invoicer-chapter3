@@ -160,6 +160,7 @@ func (iv *invoicer) postInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Create(&i1)
 	iv.db.Last(&i1)
 	log.Printf("%+v\n", i1)
+	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(fmt.Sprintf("created invoice %d", i1.ID)))
 }
@@ -186,6 +187,7 @@ func (iv *invoicer) putInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Save(&i1)
 	iv.db.First(&i1, vars["id"])
 	log.Printf("%+v\n", i1)
+	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusAccepted)
 	w.Write([]byte(fmt.Sprintf("updated invoice %d", i1.ID)))
 }
@@ -203,6 +205,7 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Where("invoice_id = ?", id).Delete(Charge{})
 	i1.ID = uint(id)
 	iv.db.Delete(&i1)
+	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusAccepted)
 	w.Write([]byte(fmt.Sprintf("deleted invoice %d", i1.ID)))
 }
